@@ -7,6 +7,7 @@ import EditTask from "./EditTask";
 function TodoList() {
   const [task, setTask] = useState(""); 
   const [tasks, setTasks] = useState([]); 
+  const [val,setval] = useState('')
   //for editing
   const [editingIndex, setEditingIndex] = useState(null); 
   const [completedTasks, setCompletedTasks] = useState(new Set()); 
@@ -36,6 +37,11 @@ function TodoList() {
     setTasks(updatedTasks);
   };
 
+  const searchTask =(indexToSearch)=>{
+    const searchval = tasks.filter((i)=>i==indexToSearch);
+    setTasks(searchval)
+  }
+
 
   const toggleComplete = (index) => {
     setCompletedTasks((prev) => {
@@ -59,6 +65,8 @@ function TodoList() {
         onChange={(e) => setTask(e.target.value)}
       />
       <button onClick={addTask}>Add Task</button>
+      <input value ={val} type ='text' placeholder='searcg here....' onChange={(e)=>setval(e.target.value)}/>
+      <button onClick={()=>searchTask(val)}>Search</button>
 
       <ul>
         {tasks.map((t, index) => (
